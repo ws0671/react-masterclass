@@ -9,7 +9,6 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    {/* 이부분은 기존에 사용하던대로 쓰면된다. */}
     <ThemeProvider theme={theme}>
       <App />
     </ThemeProvider>
