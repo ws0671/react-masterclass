@@ -1,6 +1,6 @@
 import { useParams, useLocation } from "react-router";
 import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link, useMatch } from "react-router-dom";
 import styled from "styled-components";
 import Chart from "./Chart";
 import Price from "./Price";
@@ -49,8 +49,28 @@ const OverviewItem = styled.div`
 const Description = styled.p`
   margin: 20px 0px;
 `;
-// react-router-dom v6부터 generic을 지원하지않는다. 따라서 interface를 적용하려면
-// 밑에처럼 작성해야한다.
+const Tabs = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 25px 0px;
+  gap: 10px;
+`;
+
+const Tab = styled.span<{ isActive: boolean }>`
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 400;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 7px 0px;
+  border-radius: 10px;
+  color: ${(props) =>
+    props.isActive ? props.theme.accentColor : props.theme.textColor};
+  a {
+    display: block;
+  }
+`;
+
 interface RouterState {
   state: { name: string };
 }
@@ -117,6 +137,12 @@ function Coin() {
 
   const [info, setInfo] = useState<InfoData>();
   const [priceInfo, setPriceInfo] = useState<PriceData>();
+  // useMatch 훅은 현재경로가 useMatch인자의 경로와 일치하면 일차한다고 알려주는 object를
+  // 리턴한다. 경로가 일치하지않으면 null을 반환한다.
+  // 경로에 변수를 :coinId 이런식으로 넣을 수도 있다.(이 문법이 항상 적용되지는 않을 것이다.)
+  // useMatch, Route 등등에만 적용되는 것 같다. 눈치껏 쓰자.
+  const priceMatch = useMatch("/:coinId/price");
+  const chartMatch = useMatch("/:coinId/chart");
   useEffect(() => {
     (async () => {
       const infoData = await (
@@ -166,6 +192,15 @@ function Coin() {
               <span>{priceInfo?.max_supply}</span>
             </OverviewItem>
           </Overview>
+
+          <Tabs>
+            <Tab isActive={chartMatch !== null}>
+              <Link to={`/${coinId}/chart`}>Chart</Link>
+            </Tab>
+            <Tab isActive={priceMatch !== null}>
+              <Link to={`/${coinId}/price`}>Price</Link>
+            </Tab>
+          </Tabs>
           <Routes>
             <Route path="price" element={<Price />} />
             <Route path="chart" element={<Chart />} />
