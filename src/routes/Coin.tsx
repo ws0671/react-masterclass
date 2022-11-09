@@ -1,5 +1,4 @@
 import { useParams, useLocation } from "react-router";
-import { useState, useEffect } from "react";
 import { Routes, Route, Link, useMatch } from "react-router-dom";
 import styled from "styled-components";
 import { useQuery } from "react-query";
@@ -198,7 +197,7 @@ function Coin() {
           </Tabs>
           <Routes>
             <Route path="price" element={<Price />} />
-            <Route path="chart" element={<Chart />} />
+            <Route path="chart" element={<Chart coinId={coinId} />} />
           </Routes>
         </>
       )}
