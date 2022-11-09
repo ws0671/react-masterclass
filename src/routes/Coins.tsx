@@ -70,6 +70,7 @@ function Coins() {
   //     setLoading(false);
   //   })();
   // }, []);
+  // isLoading은 말그대로 로딩중일때를 나타냄. fetcher함수가 끝나면 data에 정보들이 담긴다.
   const { isLoading, data } = useQuery<ICoin[]>("allCoins", fetchCoins);
   return (
     <Container>
