@@ -27,6 +27,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "postbuild": "cp build/index.html build/404.html",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "gh-pages -d build",
@@ -54,5 +55,5 @@
     "@types/react-helmet": "^6.1.5",
     "@types/styled-components": "^5.1.26"
   },
-  "homepage": "https://github.com/ws0671/react-masterclass"
+  "homepage": "https://ws0671.github.io/react-masterclass/"
 }
