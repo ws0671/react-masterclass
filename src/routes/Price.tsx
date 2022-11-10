@@ -28,10 +28,16 @@ function Price({ coinId }: PriceProps) {
 
   return (
     <>
-      <div>open_price: {data?.[0].open}</div>
-      <div>high_price: {data?.[0].high}</div>
-      <div>low_price: {data?.[0].low}</div>
-      <div>close_price: {data?.[0].close}</div>
+      {isLoading ? (
+        "Loading price..."
+      ) : (
+        <>
+          <div>open_price: {data?.[0].open}</div>
+          <div>high_price: {data?.[0].high}</div>
+          <div>low_price: {data?.[0].low}</div>
+          <div>close_price: {data?.[0].close}</div>
+        </>
+      )}
     </>
   );
 }
