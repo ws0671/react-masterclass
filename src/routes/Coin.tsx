@@ -21,6 +21,7 @@ const Container = styled.div`
   padding: 0px 20px;
   max-width: 480px;
   margin: 0 auto;
+  color: #fff;
 `;
 
 const Header = styled.header`
@@ -67,12 +68,15 @@ const Tab = styled.span<{ isActive: boolean }>`
   background-color: rgba(0, 0, 0, 0.5);
   padding: 7px 0px;
   border-radius: 10px;
-  color: ${(props) =>
-    props.isActive ? props.theme.accentColor : props.theme.textColor};
+  color: ${(props) => (props.isActive ? props.theme.accentColor : "#fff")};
   a {
     padding: 7px 0px;
     display: block;
   }
+`;
+const BackButton = styled.div`
+  position: relative;
+  bottom: 60px;
 `;
 
 interface RouterState {
@@ -166,6 +170,9 @@ function Coin() {
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
       </Header>
+      <BackButton>
+        <Link to={`/`}>뒤로 가기</Link>
+      </BackButton>
       {loading ? (
         <Loader>Loading...</Loader>
       ) : (
@@ -205,7 +212,7 @@ function Coin() {
             </Tab>
           </Tabs>
           <Routes>
-            <Route path="price" element={<Price />} />
+            <Route path="price" element={<Price coinId={coinId} />} />
             <Route path="chart" element={<Chart coinId={coinId} />} />
           </Routes>
         </>
